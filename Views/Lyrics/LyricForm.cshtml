@@ -1,0 +1,36 @@
+﻿@model Lyrics.ViewModels.LyricFormViewModel
+@{
+    ViewBag.Title = "LirycForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add</h2>
+<hr style="color: grey; margin-bottom: 25px; border: ridge" />
+
+@using (Html.BeginForm("Save", "Lyrics"))
+{
+    @Html.ValidationSummary()
+    <div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Lyric.Title)
+        @Html.TextBoxFor(m => m.Lyric.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Lyric.Title)
+    </div>
+    <div class="form-group" style="width: 300px">
+        @Html.LabelFor(m => m.Lyric.Text)
+        @Html.TextAreaFor(m => m.Lyric.Text, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Lyric.Text)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Lyric.GenreId)
+        @Html.DropDownListFor(m => m.Lyric.GenreId, new SelectList(Model.Genres, "Id", "Name"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Lyric.GenreId)
+    </div>
+
+    <div class="form-group buttons-horizontal">
+        <a href="/Lyrics/" class="btn btn-primary" style="margin: 5px">Back</a>
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+</div>
+
+}

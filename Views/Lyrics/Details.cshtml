@@ -1,0 +1,101 @@
+﻿@model Lyrics.Models.Lyric
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Title</h2>
+
+<hr style="margin-top: 15px; margin-bottom: 50px; border: ridge" />
+
+<div style="display: flex;">
+    <div style="width: 49%; margin-right: 10px;">
+        <p style="white-space: pre-line; font-size: medium; font-style: oblique; padding: 25px; width: auto; border: solid; border-width: thin">@Model.Text</p>
+    </div>
+    <div style="width: 49%; margin-left: 10px;">
+        <p>
+            1. Znów Cię mijałam widziałam Twe spojrzenie
+            Twych oczu blask, a w mej głowie jest marzenie
+            Żeby nagle coś się zdarzyło
+            I nasze światy połączyło...
+
+            Ref: Bo dobrze wiemy, że to miłość łączy nas
+            Choć ukrywamy się cały czas
+            Nie chcę dłużej żyć już tak
+            Więc proszę daj mi jakiś znak...
+            Bo to miłość łączy nas
+            Choć ukrywamy się cały czas
+            Może nadszedł dziś ten dzień
+            I spełnił w końcu się mój sen....
+
+            2. Kolejne spotkanie, a Ty nic nie powiedziałeś
+            Jednym spojrzeniem moje serce tak rozgrzałeś
+            Bo kiedy tylko jesteś przy mnie blisko
+            Wtedy czuję, że mam wszystko...
+
+            Ref: Bo dobrze wiemy, że to miłość łączy nas
+            Choć ukrywamy się cały czas
+            Nie chcę dłużej żyć już tak
+            Więc proszę daj mi jakiś znak....
+            Bo to miłość łączy nas
+            Choć ukrywamy się cały czas
+            Może nadszedł dziś ten dzień
+            By spełnił w końcu się mój sen....
+
+            Ref: Bo to miłość łączy nas
+            Choć ukrywamy się cały czas
+            Nie chcę dłużej żyć już tak
+            Więc proszę daj mi jakiś znak....
+            Bo to miłość łączy nas
+            Choć ukrywamy się cały czas
+            Może nadszedł dziś ten dzień
+            I spełnił w końcu się mój sen....
+        </p>
+    </div>
+</div>
+
+<hr style="margin-top: 10px; margin-bottom: 30px; border-top: solid" />
+
+<h3 style="margin-bottom: 30px">Comments</h3>
+
+<div style="width: 100%; margin-bottom: 25px;">
+    <textarea id="comment-content" style="width: 100%; height: 100px; margin-bottom: 5px"></textarea>
+    <button id="comment-button" lyric-id="@Model.Id" class="btn btn-success">Comment</button>
+</div>
+
+<hr style="margin-top: 10px; margin-bottom: 25px; border-top: dotted" />
+
+<div style="width: 70%; margin-bottom: 50px">
+    <p style="font-size: small; margin-bottom: 1px">domin1095</p>
+    <p class="comment">asdasdasd</p>
+    <p style="text-align: right; font-size: x-small;">21-07-2019 22:15</p>
+</div>
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#comment-button").on("click", function () {
+                var button = $(this);
+                var content = $("#comment-content").val();
+                $.ajax({
+                    url: "/api/comments",
+                    type: "POST",
+                    data: {
+                        LyricId: button.attr("lyric-id"),
+                        Content: content
+                    },
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        alert(data.success);
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                })
+            })
+        })
+    </script>
+}

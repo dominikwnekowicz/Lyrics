@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Lyrics.Models.Lyric>
+
+@{
+    ViewBag.Title = "Lyrics";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lyrics</h2>
+
+<p style="margin-top: 50px; margin-bottom: 15px">
+    @Html.ActionLink("Add New", "New", null, new { @class = "btn btn-primary"})
+</p>
+<table id="lirycs" class="table table-bordered table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Title, "Details", "Lyrics", new { id = item.Id}, null)
+        </td>
+        
+    </tr>
+}
+
+</table>
